@@ -1,0 +1,168 @@
+{% extends "base_in.html" %}
+
+{% block title %}
+	Proveedor
+{% endblock %}
+
+{% load static %}
+
+{% block fondo %}
+{% endblock %}
+
+{% block body %}
+
+	<script src="{% static 'js/jquery.js' %}"></script>
+	<script src="{% static 'js/chosen.jquery.js' %}"></script>
+
+	<div class="row ">
+		<div class="col-md-12" style="margin: auto; display:block; ">
+			<table width="100%" border="0" cellpadding="2">
+				<tr>
+					<td>
+						<img src="{% static '/media/logounidos.png' %}" width="350"  height="150" alt="img" style="display:block; ">
+					</td>
+					<td>
+						<a href="{% url 'Inventory:proveedorpdf' %}" type="buttonCerrarSesion"style="position:relative" target="blank"><img src="{% static '/media/REPORTE.png' %}" width="100"  height="100" alt="img" style="display:block;" align="right"></strong></a>
+					</td>
+				</tr>
+			</table>
+			<hr>
+		</div>
+
+		<div class="col-md-12">
+			<nav class="navbar navbar-dark bg-dark col-md-12">
+				<nav class="col-md-12" >
+	  				<form class="form-inline">
+	  					<div class="col-md-2">	
+	  						<a href="{% url 'Inventory:compras' %}" type="buttonCerrarSesion"style="position:static; display:inline-block; "><img src="{% static '/media/regresar2.png' %}" alt="img" style="margin: auto;width:25%; align:right" ></a> 
+	  					</div>
+	  					<div class="col-md-8" >
+		    				<label style="color:white; font-size:20px">PROVEEDOR</label>
+	  					</div>
+	  					<div class="col-md-2" >
+		    				<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal" >
+		    					<img src="{% static '/media/nuevaempresa.png' %}" alt="img" style="margin: auto;width:25px; align:right" ><strong>  NUEVO</strong>
+		    				</button>  					
+	  					</div>
+	  				</form>
+				</nav>
+			</nav>
+		</div>
+		<br>
+		<br>
+		<br>
+		<div class="col-md-12">
+			<table id="tabla" class="table table-striped table-bordered table-hover">
+				<thead >	
+					<tr>
+						<th>#</th>
+						<th>RTN</th>
+						<th>Empresa</th>
+						<th>Email</th>
+						<th>Acciones</th>
+					</tr>
+				</thead>
+				<tbody id="filas_proveedor" style="background:#F2F3F5;">
+					{% for p in proveedor %}
+						<tr>
+							<td width="10%">{{forloop.counter}}</td>
+							<td width="20%">{{p.RTN}}</td>
+							<td width="30%">{{p.nombre}}</td>
+							<td width="20%">{{p.correo}}</td>
+							<td width="10%">
+								<div class="btn-group" role="group" style="color:orange">
+		    						<button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+										<img src="{% static '/media/accion.png' %}" alt="img" style="margin: auto;width:20px; align:right" >
+		    						</button>
+							    	<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+							    		<a class="dropdown-item" href="{% url 'Inventory:editarproveedorC' p.id %}">
+					    					<img src="{% static '/media/editar.png' %}" alt="img" style="margin: auto;width:20px; align:right" ><strong>  Editar</strong>
+					    				</a>
+					    				</a>
+							    	</div>
+							  	</div>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel"><img src="{% static '/media/nuevaempresa.png' %}" alt="img" style="margin: auto;width:30px" >Nuevo Proveedor</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <form  action="{%  url 'Inventory:nuevoproveedorC' %}" method="post">
+				{% csrf_token %}
+				
+				<div>
+	        		<div class="form-row">
+	        			<div class="form-group col-md-12">
+							<label for="RTN">RTN Empresa</label>
+				    		<input type="text" name="RTN" class="form-control" id="RTN">
+						</div>
+	        		</div>
+	        		<div class="form-row">
+	        			<div class="form-group col-md-12">
+							<label for="nombre">Nombre</label>
+				    		<input type="text" name="nombre" class="form-control" id="nombre">
+						</div>
+	        		</div>
+	        		<div class="form-row">
+	        			<div class="form-group col-md-12">
+							<label for="correo">Correo</label>
+				    		<input type="text" name="correo" class="form-control" id="correo">
+				    		<small id="passwordHelpBlock" class="form-text text-muted"> Ejem: johan_chevez@DAI.com</small>
+						</div>
+	        		</div>
+	        	</div>
+				<input type="submit" value="Guardar" class="btn btn-success">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+			</form>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+	<script src="{% static 'js/jquery.js' %}"></script>
+	<script>
+		$(function(){
+			$('#txtBuscar').on('input', function(){
+				/*$.get('/Inventory/proveedor/buscar/', {dato: $(this).val().trim()}, function(data){
+					$('#filas_proveedor').html(data.listado);
+				}, 'json');*/
+				$.ajax({	
+					type:'GET',		
+		            url: '/Inventory/proveedor/buscar',
+		           
+		            contentType: "application/json; charset=utf-8",          
+		            success: function (response) {
+		            	/*$("#Emp").val(response.lista);*/
+		            	$('#filas_proveedor').html(data.listado);
+		            	//para esconder type="hidden"
+		            },            
+		            error: function (xhr, err) {
+		                alert(err);
+		            }
+				});
+			});
+		});
+	</script>
+
+	<script>
+	    $(document).ready(function(){
+			$('#tabla').dataTable({
+				 width: "100%"
+			});
+	    });
+	</script>
+
+	
+{% endblock %}

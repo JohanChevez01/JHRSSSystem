@@ -1,0 +1,32 @@
+{% extends "base_in.html" %}
+
+{% block title %}
+	Modificación de Telefono Empleado
+{% endblock %}
+
+{% load static %}
+
+{% block body %}
+
+
+	<div class="row">
+
+		<div class="col-md-12" style="margin: auto; display:block; ">
+			<img src="{% static '/media/logounidos.png' %}" width="350"  height="150" alt="img" style="margin: auto; display:block; ">
+			<hr>
+				
+			</style>
+		</div>
+
+
+		<div class="col-md-4" style="margin: auto; display:block;" id="form">
+			<form  action="{%  url 'Inventory:nuevoproveedorC' %}" method="post">
+					{% csrf_token %}
+					{{ form.as_p}}
+					<input type="submit" value="Guardar" class="btn btn-success">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			</form>
+		</div>
+	</div>
+	
+{% endblock  %}

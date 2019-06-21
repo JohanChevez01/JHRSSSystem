@@ -1,0 +1,117 @@
+{% extends "base_in.html" %}
+
+{% block title %}
+	Departamento
+{% endblock %}
+
+{% load static %}
+
+{% block fondo %}
+{% endblock %}
+
+{% block body %}
+
+	<div class="row " >
+		
+		<div class="col-md-12" style="width:1130px;height:150px; margin:0 auto;border-radius:3px;position:static">
+			<img src="{% static '/media/logounidos.png' %}" width="350"  height="150" alt="img" style="margin: auto;psoition:absolute ">
+			<br>
+		</div>
+		<div class="col-md-12">
+			<nav class="navbar navbar-dark bg-dark col-md-12">
+				<nav class="col-md-12" >
+	  				<form class="form-inline">
+	  					<div class="col-md-2">	
+	  						<a href="{% url 'Inventory:admin' %}" type="buttonCerrarSesion"style="position:static; display:inline-block; "><img src="{% static '/media/regresar2.png' %}" alt="img" style="margin: auto;width:25%; align:right" ></a> 
+	  					</div>
+	  					<div class="col-md-8" >
+		    				<label style="color:white; font-size:20px">DEPARTAMENTO</label>
+	  					</div>
+	  					<div class="col-md-2" >
+		    				<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal" >
+		    					<img src="{% static '/media/nuevodepartamento.png' %}" alt="img" style="margin: auto;width:25px; align:right" ><strong>  NUEVO</strong>
+		    				</button>
+	  					</div>
+	  				</form>
+				</nav>
+			</nav>
+		</div>
+		<br>
+		<br>
+		<br>
+		<div class="col-md-12">
+			<table id="tabla" class="table table-striped table-bordered table-hover" style="width:100%">
+				<thead>	
+					<tr>
+						<th width="10%">#</th>
+						<th width="70%">Departamento</th>
+						<th width="20%">Acción</th>
+					</tr>
+				</thead>
+
+				<tbody id="filas_departamento" style="background:#F2F3F5;">
+					{% for c in departamento %}
+						<tr>
+							<td>{{forloop.counter}}</td>
+							<td><strong>{{c.departamento}}</strong></td>
+							<td>
+								<div class="btn-group" role="group" style="color:orange">
+			    					<button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+										<img src="{% static '/media/accion.png' %}" alt="img" style="margin: auto;width:20px; align:right" >
+			    					</button>
+								    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+								    	<a class="dropdown-item" href="{% url 'Inventory:editardepartamento' c.id %}">
+						    				<img src="{% static '/media/editar.png' %}" alt="img" style="margin: auto;width:20px; align:right" ><strong>  Editar</strong>
+						    			</a>
+								   	</div>
+								</div>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+		
+	</div>
+
+
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel"><img src="{% static '/media/nuevodepartamento.png' %}" alt="img" style="margin: auto;width:30px" > Nuevo Departamento</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <form  action="{%  url 'Inventory:nuevodepartamento' %}" method="post">
+	        	<div class="col-md-12">
+	        		
+					{% csrf_token %}
+					<div>
+						<div class="form-row">
+		        			<div class="form-group col-md-12">
+		        				<label for="departamento">Departamento</label>
+		        				<input type="text" name="departamento" class="form-control" id="departamento">
+		        			</div>
+	        			</div>
+					</div>
+					<input type="submit" value="Guardar" class="btn btn-success">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+	        	</div>
+			</form>
+	      </div>
+	    </div>
+	  </div>
+	</div>	
+
+	<script src="{% static 'js/jquery.js' %}"></script>
+
+	<script>
+	    $(document).ready(function(){
+			$('#tabla').dataTable({
+			});
+	    });
+	</script>
+{% endblock %}

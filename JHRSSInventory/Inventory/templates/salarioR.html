@@ -1,0 +1,161 @@
+{% extends "base_in.html" %}
+
+{% block title %}
+	Salario
+{% endblock %}
+
+{% load static %}
+
+{% block fondo %}
+	
+{% endblock %}
+
+{% block body %}
+	
+	<script src="{% static 'js/jquery.js' %}"></script>
+	<script src="{% static 'js/chosen.jquery.js' %}"></script>
+
+	<div class="row ">
+		<div class="col-md-12" style="width:1130px;height:150px;margin:0 auto;border-radius:3px;position:static">
+			<img src="{% static '/media/logounidos.png' %}" width="350"  height="150" alt="img" style="margin: auto;psoition:absolute ">
+			<br>
+		</div>
+
+		<div class="col-md-12">
+			<nav class="navbar navbar-dark bg-dark col-md-12">
+				<nav class="col-md-12" >
+	  				<form class="form-inline">
+	  					<div class="col-md-2">	
+	  						<a href="{% url 'Inventory:recursosH' %}" type="buttonCerrarSesion"style="position:static; display:inline-block; "><img src="{% static '/media/regresar2.png' %}" alt="img" style="margin: auto;width:25%; align:right" ></a> 
+	  					</div>
+	  					<div class="col-md-8" >
+		    				<label style="color:white; font-size:20px">SALARIO</label>
+	  					</div>
+	  					<div class="col-md-2" >
+		    				<button type="button" class="btn btn-outline-light" data-toggle="modal" data-target="#exampleModal" >
+		    					<img src="{% static '/media/nuevosalario.png' %}" alt="img" style="margin: auto;width:35px; align:right" ><strong>  NUEVO</strong>
+		    				</button>
+	  					</div>
+	  				</form>
+				</nav>
+			</nav>
+		</div>
+		<br>
+		<br>
+		<br>
+		<div class="col-md-12">
+			<table id="tabla" class="table table-striped table-bordered table-hover" style="width:100%">
+				<thead >	
+					<tr>
+						<th >#</th>
+						<th >Cod_Empleado</th>
+						<th >Nombre Completo Empleado</th>
+						<th >Salario</th>
+						<th >Fecha Asignación Salario</th>
+						<th >Motivo de Salario</th>
+						<th >Acción</th>
+					</tr>
+				</thead>
+
+				<tbody id="filas_salario" style="background:#F2F3F5;">
+					{% for c in salario %}
+						<tr>
+							<td>{{forloop.counter}}</td>
+							<td><strong>{{c.contrato.cod_empleado.cod_empleado}}</strong></td>
+							<td><strong>{{c.contrato.cod_empleado.primer_nombre}} {{c.contrato.cod_empleado.segundo_nombre}} {{c.contrato.cod_empleado.primer_apellido}} {{c.contrato.cod_empleado.segundo_apellido}}</strong></td>
+							<td><strong>{{c.salario}}</strong></td>
+							<td><strong>{{c.fechaS}}</strong></td>
+							<td><strong>{{c.comentarioSalario}}</strong></td>
+							<td>
+								<div class="btn-group" role="group" style="color:orange">
+			    					<button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+										<img src="{% static '/media/accion.png' %}" alt="img" style="margin: auto;width:20px; align:right" >
+			    					</button>
+								    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+								    	<a class="dropdown-item" href="{% url 'Inventory:editarsalarioR' c.id %}">
+						    				<img src="{% static '/media/editar.png' %}" alt="img" style="margin: auto;width:20px; align:right" ><strong>  Editar</strong>
+						    			</a>
+								   	</div>
+								</div>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+		
+	</div>
+
+
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel"><img src="{% static '/media/nuevosalario.png' %}" alt="img" style="margin: auto;width:30px" > Nuevo Salario</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <form  action="{%  url 'Inventory:nuevosalario' %}" method="post">
+	        	<div class="col-md-12">
+					{% csrf_token %}
+
+					<div class="form- row">
+						<div class="form-group col-md-12">
+							<label for="contrato"> Contrato de Empleado</label>
+							<select name="contrato" class="form-control" id="contrato">
+								<option value="">Seleccione Empleado </option>
+								{% for contrato in contratos %}
+									<option value="{{contrato.id}}">{{contrato.id}}. {{contrato}}</option>
+								{% endfor %}
+							</select>							
+						</div>
+					</div>
+					<div class="form- row">
+						<div class="form-group col-md-6">
+							<label for="salario">Salario</label>
+							<input type="money" class="form-control" name="salario" id="salario">
+						</div>
+						<div class="form-group col-md-6">
+							<label for="fechaSalario">Fecha Salario</label>
+							<input type="date" class="form-control" name="fechaSalario" id="fechaSalario">
+						</div>
+					</div>
+					<div class="form- row">
+						<div class="form-group col-md-12">
+							<label for="comentario"> Motivos de Salario</label>
+							<select name="comentario" class="form-control" id="comentario">
+								<option value="">Seleccione el motivo del Salario</option>
+								{% for comentario in comentarioS %}
+									<option value="{{comentario.id}}">{{comentario}}</option>
+								{% endfor %}
+							</select>							
+						</div>
+					</div>
+					<input type="submit" value="Guardar" class="btn btn-success">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+	        	</div>
+			</form>
+	      </div>
+	    </div>
+	  </div>
+	</div>	
+
+
+	<script>
+	    $(document).ready(function(){
+	        $('#contrato').chosen({
+			    width: "100%"
+			});
+			$('#comentario').chosen({
+			    width: "100%"
+			});
+
+			$('#tabla').dataTable({
+				 width: "100%"
+			});
+			
+	    });
+	</script>
+{% endblock %}

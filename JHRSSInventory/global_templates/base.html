@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>{% block title %} {%endblock%}</title>
+
+	{% load static %}
+
+	<link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+	<link id="favicon" rel="shortcut icon" href="{% static 'media/logounidos.png'%}" type="image/png" />
+	<link rel="stylesheet" type="text/css" href="{% static 'js/chosen.css' %}">
+	<link rel="stylesheet" href="{% static 'bootstrap/css/dataTables.bootstrap4.min.css' %}">
+	<style>
+		body{
+			background-size: cover;
+		}
+	</style>
+	
+</head>
+<body background="{% block fondo %} {% endblock  %}">
+	
+	<div class="container">
+		{% block content %}
+		{% endblock %}
+	</div>
+
+	<script src="{% static 'js/jquery.js' %}"></script>
+	<script src="{% static 'js/chosen.jquery.js' %}"></script>
+	<script src="{% static 'bootstrap/js/popper.min.js' %}"></script>
+	<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'bootstrap/js/jquery.dataTables.min.js' %}"></script>
+	<script src="{% static 'bootstrap/js/dataTables.bootstrap4.min.js' %}"></script> 
+	<script src="{% static 'js/Inventory.js' %}"></script>
+	<script src="{% static 'bootstrap/js/jquery.mask.min.js' %}"></script>
+	
+
+</body>
+</html>

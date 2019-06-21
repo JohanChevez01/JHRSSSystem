@@ -1,0 +1,273 @@
+{% extends "base_in.html" %}
+
+{% block title %}
+
+	BIENVENIDO ADMINISTRADOR SOFTWARE
+{% endblock %}
+
+{% load static %}
+
+{% block fondo %}
+	{% static 'media/adminP.png' %}
+{% endblock %}
+
+{% block body %}
+	
+	<style>
+		.dropdown-submenu {
+		  position: relative;
+		}
+
+		.dropdown-submenu .dropdown-menu {
+		  top: 0;
+		  left: 100%;
+		  margin-top: -1px;
+		}
+	</style>
+	<div class="row">
+		<div class="col-md-12" style="margin: auto; display:block; ">
+			<table width="100%" border="0" cellpadding="2">
+				<tr>
+					<td>
+						<img src="{% static '/media/logounidos.png' %}" width="350"  height="150" alt="img" style="display:block; ">
+					</td>
+					<td>
+						<a href="{% url 'security:log_out' %}" type="buttonCerrarSesion"style="position:relative"><img src="{% static '/media/cerrarsesiontodo.png' %}" width="155"  height="50" alt="img" style="display:block;" align="right"></a>
+					</td>
+				</tr>
+			</table>
+			<hr>
+		</div>
+
+		<div class="btn-group" style="margin:auto">
+			<button type="button" class="btn btn-secondary">
+				<a href="{% url 'Inventory:admin' %}">
+					<img src="{% static '/media/home.png' %}" alt="img" style="margin: auto;width:45px" >
+				</a>
+			</button>
+
+			<div class="btn-group" role="group">
+		    	<button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		      	<img src="{% static '/media/empleado.png' %}" alt="img" style="margin: auto;width:60px" ><strong>  EMPLEADO</strong>
+		    	</button>
+		    	<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+		    		<a class="dropdown-item" href="{% url 'Inventory:usuario' %}">
+		    			<img src="{% static '/media/iniciarsesion.png' %}" alt="img" style="margin: auto;width:30px" >         Usuario
+		    		</a>
+		      		<a class="dropdown-item" href="{% url 'Inventory:empleado' %}">
+		      			<img src="{% static '/media/empleadoR.png' %}" alt="img" style="margin: auto;width:25px" >            Empleado
+		      		</a>
+		        	<a class="dropdown-item" href="{% url 'Inventory:telefonoempleado' %}">
+		        		<img src="{% static '/media/telefono.png' %}" alt="img" style="margin: auto;width:25px" >            Telefono Empleado
+		        	</a>
+		        	<a class="dropdown-item" href="{% url 'Inventory:direccionempleado' %}">
+		        		<img src="{% static '/media/ubicacion.png' %}" alt="img" style="margin: auto;width:25px" >          Direccion Empleado
+		        	</a>
+		        	<a class="dropdown-item" href="{% url 'Inventory:contrato' %}">
+		        		<img src="{% static '/media/contrato.png' %}" alt="img" style="margin: auto;width:25px" >           Contrato Empleado
+		        	</a>
+		        	<a class="dropdown-item" href="{% url 'Inventory:salario' %}">
+		        		<img src="{% static '/media/salario.png' %}" alt="img" style="margin: auto;width:25px" >              Salario Empleado
+		        	</a>
+		   		</div>
+		  	</div>
+
+		  	<div class="btn-group" role="group">
+		    	<button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		      	<img src="{% static '/media/registro.png' %}" alt="img" style="margin: auto;width:50px" ><strong>  REGISTROS</strong>
+		    	</button>
+		    	<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+		    		<a class="dropdown-item" href="{% url 'Inventory:profesion' %}">
+		    			<img src="{% static '/media/profesion.png' %}" alt="img" style="margin: auto;width:30px" >       Profesión
+		    		</a>
+		      		<a class="dropdown-item" href="{% url 'Inventory:cargo' %}"><img src="{% static '/media/cargo.png' %}" alt="img" style="margin: auto;width:30px" >       Cargo</a>
+		        	<a class="dropdown-item" href="{% url 'Inventory:departamento' %}"><img src="{% static '/media/departamento.png' %}" alt="img" style="margin: auto;width:30px" >       Departamento</a>
+		        	<a class="dropdown-item" href="{% url 'Inventory:regional' %}"><img src="{% static '/media/regional.png' %}" alt="img" style="margin: auto;width:30px" >       Regionales</a>
+		   		</div>
+		  	</div>
+
+		  	<div class="btn-group" role="group">
+		    	<button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		      	<img src="{% static '/media/informatica.png' %}" alt="img" style="margin: auto;width:60px" ><strong>  EQUIPOS IT</strong>
+		    	</button>
+		    	<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+		      		<a class="dropdown-item" href="{% url 'Inventory:equipo' %}">
+		      			<img src="{% static '/media/equipo.ico' %}" alt="img" style="margin: auto;width:30px" >       Computadoras</a>
+		      		<a class="dropdown-item" href="{% url 'Inventory:impresoras' %}">
+		      			<img src="{% static '/media/impresora.png' %}" alt="img" style="margin: auto;width:25px" >       Impresoras & Más</a>
+		   		</div>
+		  	</div>
+
+		  	<div class=" btn-group dropdown" role="group">
+			    <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			    	<img src="{% static '/media/registroIT.png' %}" alt="img" style="margin: auto;width:45px" >
+			    	<strong>  REGISTROS IT</strong>
+			    	<span class="caret"></span>
+			    </button>
+			    <div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
+			    	<li class="dropdown-submenu">
+			      		<a class="dropdown-item test" tabindex="-1" href="#" >
+			      			<img src="{% static '/media/herramientas.png' %}" alt="img" style="margin: auto;width:30px" >Herramientas de Equipo    .
+			      			<img src="{% static '/media/flechas.png' %}" alt="img" style="margin: auto;width:10px" >
+			      			<span class="caret"></span>
+			      		</a>
+			      		<ul class="dropdown-menu">
+			          		<li>
+			          			<a class="dropdown-item" tabindex="-1" href="{% url 'Inventory:sistema' %}">
+			          				<img src="{% static '/media/sistema.png' %}" alt="img" style="margin: auto;width:20px" >       Sistemas Operativos
+			          			</a>
+			          		</li>
+					        <li>
+					        	<a class="dropdown-item " tabindex="-1" href="{% url 'Inventory:discoDuro' %}">
+					        		<img src="{% static '/media/disco.jpg' %}" alt="img" style="margin: auto;width:25px" >       Disco Duro
+					        	</a>
+					        </li>
+					        <li>
+					        	<a class="dropdown-item" tabindex="-1" href="{% url 'Inventory:memoriaRAM' %}">
+					        		<img src="{% static '/media/ram.jpg' %}" alt="img" style="margin: auto;width:25px" >       Memoria RAM
+					        	</a>
+					        </li>
+					        <li>
+					        	<a class="dropdown-item" tabindex="-1" href="{% url 'Inventory:procesador' %}">
+					        		<img src="{% static '/media/procesador.jpg' %}" alt="img" style="margin: auto;width:25px" >       Procesador
+					        	</a>
+					        </li>
+					        <li>
+					        	<a class="dropdown-item" tabindex="-1" href="{% url 'Inventory:tipoEquipo' %}">
+					        		<img src="{% static '/media/tipo.jpg' %}" alt="img" style="margin: auto;width:25px" >         Tipo de Equipo
+					        	</a>
+					        </li>
+					        <li>
+					        	<a class="dropdown-item" tabindex="-1" href="{% url 'Inventory:marca' %}">
+					        		<img src="{% static '/media/marca.jpg' %}" alt="img" style="margin: auto;width:25px" >       Marca
+					        	</a>
+					        </li>
+					        <li>
+					        	<a class="dropdown-item" tabindex="-1" href="{% url 'Inventory:modelo' %}">
+					        		<img src="{% static '/media/modelos.png' %}" alt="img" style="margin: auto;width:25px" >       Modelo
+					        	</a>
+					        </li>
+			        	</ul>
+			      	</li>
+					
+					<li class="dropdown-submenu">
+			      		<a class="dropdown-item test" tabindex="-1" href="#" >
+			      			<img src="{% static '/media/asignacion.png' %}" alt="img" style="margin: auto;width:30px" >       Asignaciones de Equipo.
+			      			<img src="{% static '/media/flechas.png' %}" alt="img" style="margin: auto;width:10px" >
+			      			<span class="caret"></span>
+			      		</a>
+			      		<ul class="dropdown-menu">
+			          		<li>
+			          			<a class="dropdown-item" href="{% url 'Inventory:asignacion' %}">
+									<img src="{% static '/media/equipo.ico' %}" alt="img" style="margin: auto;width:30px" >  Computadoras
+								</a>
+			          		</li>
+					        <li>
+					        	<a class="dropdown-item" tabindex="-1" href="{% url 'Inventory:asignacionImpresoras' %}">
+					        		<img src="{% static '/media/impresora.png' %}" alt="img" style="margin: auto;width:30px" >  Impresoras & Más
+					        	</a>
+					        </li>
+			        	</ul>
+			      	</li>
+
+			      	<li class="dropdown-submenu">
+			      		<a class="dropdown-item test" tabindex="-1" href="#" >
+			      			<img src="{% static '/media/descargo.png' %}" alt="img" style="margin: auto;width:30px" >       Descargo de Equipo.........
+			      			<img src="{% static '/media/flechas.png' %}" alt="img" style="margin: auto;width:10px" >
+			      			<span class="caret"></span>
+			      		</a>
+			      		<ul class="dropdown-menu">
+			          		<li>
+			          			<a class="dropdown-item" href="{% url 'Inventory:descargo' %}">
+									<img src="{% static '/media/equipo.ico' %}" alt="img" style="margin: auto;width:30px" >  Computadoras
+								</a>
+			          		</li>
+					        <li>
+					        	<a class="dropdown-item" tabindex="-1" href="{% url 'Inventory:descargoImpresoras' %}">
+					        		<img src="{% static '/media/impresora.png' %}" alt="img" style="margin: auto;width:30px" >  Impresoras & Más
+					        	</a>
+					        </li>
+			        	</ul>
+			      	</li>
+			      	
+					<a class="dropdown-item" href="{% url 'Inventory:garantia' %}">
+		        		<img src="{% static '/media/garantia.png' %}" alt="img" style="margin: auto;width:30px" >       Garantía
+		        	</a>
+			      	<li class="dropdown-submenu">
+			      		<a class="dropdown-item test" tabindex="-1" href="#" >
+			      			<img src="{% static '/media/mantenimientop1.png' %}" alt="img" style="margin: auto;width:30px" >       Tipos de Mantenimiento          
+			      			<img src="{% static '/media/flechas.png' %}" alt="img" style="margin: auto;width:10px" >
+			      			<span class="caret"></span>
+			      		</a>
+			      		<ul class="dropdown-menu">
+			          		<li>
+			          			<a class="dropdown-item" tabindex="-1" href="{% url 'Inventory:mantenimiento' %}">
+			          				<img src="{% static '/media/equipo.ico' %}" alt="img" style="margin: auto;width:30px" >       Computadoras
+			          			</a>
+			          		</li>
+					        <li>
+					        	<a class="dropdown-item" tabindex="-1" href="{% url 'Inventory:mantenimientoImpresora' %}">
+					        		<img src="{% static '/media/impresora.png' %}" alt="img" style="margin: auto;width:30px" >       Impresoras & Más
+					        	</a>
+					        </li>
+			        	</ul>
+			      	</li>
+			    </div>
+			</div>
+
+		  	<div class="btn-group" role="group">
+		    	<button id="btnGroupDrop2" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		      	<img src="{% static '/media/proveedor.png' %}" alt="img" style="margin: auto;width:50px" ><strong>  PROVEEDOR</strong>
+		    	</button>
+		    	<div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
+		      		<a class="dropdown-item" href="{% url 'Inventory:proveedor' %}"><img src="{% static '/media/empresa.png' %}" alt="img" style="margin: auto;width:30px" >       EMPRESA</a>
+		        	<a class="dropdown-item" href="{% url 'Inventory:direccionproveedor' %}"><img src="{% static '/media/ubicacion.png' %}" alt="img" style="margin: auto;width:30px" >       DIRECCION</a>
+		        	<a class="dropdown-item" href="{% url 'Inventory:telefonoproveedor' %}"><img src="{% static '/media/telefono.png' %}" alt="img" style="margin: auto;width:30px" >       TELEFONO</a>
+		   		</div>
+		  	</div>
+
+		  	
+		  	
+		</div>
+		<div class="col-md-12" style="text-align:center">
+			<br>
+			<center>
+				<form class="form-inline col-md-12">
+					<div class="col-md-1"></div>
+					<div style="width:50px;" class="col-md-3">
+						<img class="card-img-top" src="{% static '/media/equipop1.png' %}" alt="Card image cap" style="margin: auto;width:200px">
+						<div>
+							<p class="card-text" style="text-align:center; color:#154360"><strong>Equipos:  {{equipo}}</strong></p>
+						</div>
+					</div>
+					<div style="width:50px;" class="col-md-4">
+						<img class="card-img-top" src="{% static '/media/empleadoR.png' %}" alt="Card image cap" style="margin: auto;width:200px">
+						<div>
+							<p class="card-text" style="text-align:center; color:#154360"><strong>Empleados:  {{empleado}}</strong></p>
+						</div>
+					</div>
+					<div style="width:50px;" class="col-md-3">
+						<img class="card-img-top" src="{% static '/media/mantenimientop1.png' %}" alt="Card image cap" style="margin: auto;width:200px">
+						<div>
+							<p class="card-text" style="text-align:center; color:#154360"><strong>Mantenimientos:  {{mantenimiento}}</strong></p>
+						</div>
+					</div>
+					<div class="col-md-1"></div>
+				</form>
+			</center>
+		</div>
+	</div>
+	
+	<script src="{% static 'js/jquery.js' %}"></script>
+	<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+
+	<script>
+		$(document).ready(function(){
+			$('.dropdown-submenu a.test').on("click", function(e){
+				$(this).next('ul').toggle();
+			    	e.stopPropagation();
+			    	e.preventDefault();
+			});
+		});
+	</script>
+{% endblock  %}

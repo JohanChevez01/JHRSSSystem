@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Empleados Pdf</title>
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"> -->
+	<!--<link rel="stylesheet" href="https://gist.githubusercontent.com/soncco/fd8e5a6df105ec5dfd1d/raw/7091e625efe98d4df000354cd1ae379dd6fe85f4/bootstrap.css">-->
+	<link rel="stylesheet" href="/static/bootstrap/css/bootstrap.css">
+	<link id="favicon" rel="shortcut icon" href="/media/Logo/logounidos.png" type="image/png" />
+</head>
+<body>
+	<style>
+		h1{
+			padding: 0px;
+			color: #008080;
+		}
+		h3{
+			padding: 0px;
+			color: #008090;
+		}
+		
+		table {
+			font-size: 12pt;
+			left: 50pt;
+			height: 20pt;
+
+		}
+		@page{
+
+			@frame header_frame {
+				-pdf-frame-content: header_content;
+				-pdf-frame-border: 1;
+				left: 50pt;
+				width: 700pt;
+				top: 50pt;
+				height: 40pt;
+				
+			}
+
+			@frame content_frame{
+				-pdf-frame-border: 1;
+				left: 300pt;
+				width: 700pt;
+				top: 90pt;
+				height: 450	pt;
+				
+			}
+
+			@frame header_frame {
+				-pdf-frame-content: footer_content;
+				-pdf-frame-border: 1;
+				left: 50pt;
+				width: 700pt;
+				top: 550pt;
+				height: 20pt;
+				
+			}
+		}
+	</style>
+
+	<div class="col-md-12" style="margin: auto; display:block; ">
+		<table width="100%" border="0" cellpadding="2" bgcolor="#EBEBEB">
+			<tr>
+				<td>
+					<center><img src="/media/Logo/logounidos.png" width="300"  height="120" alt="img" style="display:block; "></center>
+				</td>
+			</tr>
+		</table>
+		<hr>
+	</div>
+
+	<div id="header_content">
+		<div>
+			<thead>	
+				<tr>
+					<th ><h3 style="text-align:center">INFORMACIÓN PERSONAL</h3></th>
+					<th></th>			
+				</tr>
+			</thead>
+		</div>
+		<hr>
+		<hr>
+	</div>
+	<div class="col-md-12">
+		<div class="col-md-12">
+			<table>
+				<tr>
+					<td><strong>Cod. Empleado:</strong>     {{cod_empleado.cod_empleado}}</td>
+				</tr>
+				<tr>
+					<td><strong style="text-align:center">Identidad:</strong>     {{cod_empleado.identidad}}</td>
+				</tr>
+				<tr>
+					<td><strong>Nombre Completo: </strong>     {{cod_empleado.primer_nombre}} {{cod_empleado.segundo_nombre}} {{cod_empleado.primer_apellido}} {{cod_empleado.segundo_apellido}}</td>
+				</tr>
+				<tr>
+					<td><strong>Fecha Nacimiento: </strong> {{cod_empleado.fechanacimiento}}</td>
+				</tr>
+				<tr>
+					<td><strong>Estado Civil:    </strong> {{cod_empleado.estadocivil.estadocivil}}</td>
+				</tr>
+				<tr>
+					<td><strong>Género: </strong> {{cod_empleado.genero}}</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<hr>
+	<div class="col-md-12">
+		<div class="col-md-12">
+			<table>
+				<tr>
+					<td><strong>Correo Electrónico: </strong> {{cod_empleado.correo}}</td>
+				</tr>
+				<tr>
+					<td><strong>Dirección:</strong>
+						{% for d in direccion  %}
+							<tr>
+								<td>
+									<li>{{d.direccion}} <strong>({{d.Comentario.comentarioEmpleadoD}})</strong></li>
+								</td>
+							</tr>
+						{% endfor %}
+					</td>
+				</tr>
+				<tr>
+					<td><strong>Telefono: </strong>
+						{% for t in telefono  %}
+							<tr>
+								<td> 
+									<li>{{t.telefono}} <strong>({{t.Comentario}})</strong></li>
+								</td>
+							</tr>
+						{% endfor %}
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<hr>
+	<div class="col-md-12">
+		<div class="col-md-12">
+			<table>
+				<tr>
+					<td><strong>Profesión:</strong>
+						{% for p in profesion %}
+							<tr>
+								<td>
+									<li>{{ p.profesion }} <strong>( {{ p.gradoacademico.gradoacademico}})</strong></li>
+								</td>
+							</tr>					
+						{% endfor %}
+					</td>
+				</tr>
+				<tr>
+					<td><strong>Regional:</strong> {{cod_empleado.regional}}		</td>
+				</tr>
+				<tr>
+					<td><strong>Cargo:</strong> {{cod_empleado.cargo}} ({{cod_empleado.cargo.departamento}})</td>
+				</tr>
+				<tr>
+					<td><strong>Usuario:</strong> {{cod_empleado.user}}</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<div class="col-md-12">
+		<div class="col-md-12">
+			<table>
+				<tr>
+					<td><strong>Contrato Y Salario:</strong>
+						{% for c in contrato  %}
+							<tr>
+								<td>
+									<li>{{c.fecha_inicio}} / {{c.fecha_final}}</li>
+									<div class="col-md-12">
+										<table>
+											{% for s in salario %}
+												<tr>
+													<td>
+														<ol>
+															{{s.salario}} <strong>{{s.comentarioSalario}}</strong>
+														<ol>
+													</td>
+												</tr>
+											{% endfor %}
+										</table>
+									</div>
+								</td>
+							</tr>
+						{% endfor %}
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</body>
+</html>

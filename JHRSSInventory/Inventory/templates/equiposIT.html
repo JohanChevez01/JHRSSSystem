@@ -1,0 +1,58 @@
+{% extends "base_in.html" %}
+
+{% block title %}
+	Equipos IT
+{% endblock %}
+
+{% load static %}
+
+{% block fondo %}
+	{% static 'media/fequipo.png' %}
+{% endblock fondo %}
+
+
+{% block body %}
+	<div class="row">
+		<div class="col-md-2">	
+	  		 
+	  	</div>
+		<div class="col-md-12" style="margin: auto; display:block; ">
+			<table width="100%" border="0" cellpadding="2">
+				<tr>
+					<td>
+						<a href="{% url 'Inventory:IT' %}" type="buttonCerrarSesion"style="position:static; display:inline-block; ">
+	  						<img src="{% static '/media/regresar2.png' %}" alt="img" style="margin: auto;width:25%; align:right" >
+	  					</a>
+					</td>
+					<td>
+						<img src="{% static '/media/logounidos.png' %}" width="320"  height="120" alt="img" style="display:block; ">
+					</td>
+					<td>
+						<a href="{% url 'security:log_out' %}" type="buttonCerrarSesion"style="position:relative"><img src="{% static '/media/cerrarsesiontodo.png' %}" width="155"  height="50" alt="img" style="display:block;" align="right"></a>
+					</td>
+				</tr>
+			</table>
+			<hr>
+		</div>
+		<div class="col-md-12" style="text-align:center">
+			<br>
+			<center>
+				<form class="form-inline col-md-12">
+					<div class="col-md-1"></div>
+					<div style="width:50px;" class="col-md-3">
+						<a href="{% url 'Inventory:equipoIT' %}" class="btn btn-default" role="button">
+								<img  href="{% url 'Inventory:equipoIT' %}" src="{% static '/media/equipoP.png' %}" width="360"  height="400" alt="img" style="display:block; ">
+							</a>
+					</div>
+					<div class="col-md-3"></div>
+					<div style="width:50px;" class="col-md-4">
+						<a href="{% url 'Inventory:impresorasIT' %}" class="btn btn-default" role="button">
+							<img  href="{% url 'Inventory:impresorasIT' %}" src="{% static '/media/impresorasymas.png' %}" width="360"  height="400" alt="img" style="display:block; ">
+						</a>
+					</div>
+					<div class="col-md-1"></div>
+				</form>
+			</center>
+		</div>
+	</div>
+{% endblock  %}

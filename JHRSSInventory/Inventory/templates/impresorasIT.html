@@ -1,0 +1,265 @@
+{% extends "base_in.html" %}
+
+{% block title %}
+	Impresoras & Más 
+{% endblock %}
+
+{% load static %}
+
+{% block fondo %}
+{% endblock %}
+
+{% block body %}
+
+	<script src="{% static 'js/jquery.js' %}"></script>
+	<script src="{% static 'js/chosen.jquery.js' %}"></script>
+
+	<div class="row ">
+		<div class="col-md-12" style="margin: auto; display:block; ">
+			<table width="100%" border="0" cellpadding="2">
+				<tr>
+					<td>
+						<img src="{% static '/media/logounidos.png' %}" width="350"  height="150" alt="img" style="display:block; ">
+					</td>
+					<td>
+						<a href="{% url 'Inventory:impresoraspdf' %}" type="buttonCerrarSesion"style="position:relative" target="_blank">
+							<img src="{% static '/media/REPORTE.png' %}" width="100"  height="100" alt="img" style="display:block;" align="right">
+						</a>
+					</td>
+				</tr>
+			</table>
+			<hr>
+		</div>
+
+		<div class="col-md-12">
+			<nav class="navbar navbar-dark bg-dark col-md-12">
+				<nav class="col-md-12" >
+	  				<form class="form-inline">
+	  					<div class="col-md-2">	
+	  						<a href="{% url 'Inventory:IT' %}" type="buttonCerrarSesion"style="position:static; display:inline-block; "><img src="{% static '/media/regresar2.png' %}" alt="img" style="margin: auto;width:25%; align:right" ></a> 
+	  					</div>
+	  					<div class="col-md-8" >
+		    				<label style="color:white; font-size:20px">IMPRESORAS & MÁS</label>
+	  					</div>
+	  					<div class="col-md-2" >
+		    				<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal" >
+		    					<img src="{% static '/media/nuevaimpresora.png' %}" alt="img" style="margin: auto;width:30px; align:right" ><strong>  NUEVO</strong>
+		    				</button>
+	  					</div>
+	  				</form>
+				</nav>
+			</nav>
+		</div>
+		<br>
+		<br>
+		<br>
+		<div class="col-md-12">
+			<table id="tabla" class="table table-striped table-bordered table-hover" >
+				<thead>	
+					<tr>
+						<th width="5%">#</th>
+						<th width="15%">Cod Inventario</th>
+						<th width="15%">Tipo de Equipo</th>
+						<th width="15%"># de Serie</th>
+						<th width="25%">Modelo</th>
+						<th width="15%">Proveedor</th>
+						<th width="20%">Regional</th>
+						<th width="25%">Acción</th>
+					</tr>
+				</thead>
+
+				<tbody id="filas_equipo" style="background:#F2F3F5;">
+					{% for c in equipo %}
+						<tr>
+							<td>{{forloop.counter}}</td>
+							<td><strong>{{c.codigo_Inventario}}</strong></td>
+							<td><strong>{{c.modelo.marca.tipo}}</strong></td>
+							<td><strong>{{c.serial}}</strong></td>
+							<td><strong>{{c.modelo}} / {{c.modelo.marca}}</strong></td>
+							<td><strong>{{c.empresaProveedor.nombre}}</strong></td>
+							<td><strong>{{c.regional}}</strong></td>
+							<td>
+								<div class="btn-group" role="group" style="color:orange">
+			    					<button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+										<img src="{% static '/media/accion.png' %}" alt="img" style="margin: auto;width:20px; align:right" >
+			    					</button>
+								    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+								    	<a class="dropdown-item" href="{% url 'Inventory:editarimpresorasIT' c.id %}">
+						    				<img src="{% static '/media/editar.png' %}" alt="img" style="margin: auto;width:20px; align:right" ><strong>  Editar</strong>
+						    			</a>
+						    			<a class="dropdown-item" href="{% url 'Inventory:historialimpresoras' c.id %}" target="_blank">
+						    				<img src="{% static '/media/historial.png' %}" alt="img" style="margin: auto;width:20px; align:right" ><strong>  Historial</strong>
+						    			</a>
+								   	</div>
+								</div>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel"><img src="{% static '/media/nuevaimpresora.png' %}" alt="img" style="margin: auto;width:30px" > Nuevo Equipo</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <form  action="{%  url 'Inventory:nuevoimpresorasIT' %}" method="post">
+	        	<div class="col-md-12">
+	        		
+					{% csrf_token %}
+					<div class="form-row">
+	        			<div class="form-group col-md-6">
+	        				<label for="codInventario">Código Inventario</label>
+	        				<input type="text" name="codInventario" class="form-control" id="codInventario" required="">
+	        			</div>
+	        			<div class="form-group col-md-6">
+	        				<label for="tipo">Tipo de Equipo</label>
+	        				<select name="tipo" class="form-control" id="tipo">
+	        					<option selected="">Seleccione Tipo</option>
+	        					{% for tipo in tipo  %}
+	        						<option value="{{tipo.id}}">{{tipo}}</option>
+	        					{% endfor %}
+	        				</select>
+	        			</div>
+	        		</div>
+
+	        		<div class="form-row">
+	        			<div class="form-group col-md-6" id='MMM'>
+	        				<label for="marca">Marca</label>
+	        				<select name="marca" class="form-control" id="marca">
+	        					<option selected="">Seleccione marca</option>
+	        					{% for marca in marca  %}
+	        						<option value="{{marca.id}}">{{marca}}</option>
+	        					{% endfor %}
+	        				</select>
+	        			</div>
+	        			<div class="form-group col-md-6" id='SMM'>
+	        				<label for="modelo">Modelo</label>
+	        				<select name="modelo" class="form-control " id="modelo">
+	        					<option selected="">Seleccione modelo</option>
+	        				</select>
+	        			</div>
+	        		</div>
+	        		<div class="form-row">
+	        			<div class="form-group col-md-6">
+	        				<label for="serial"> N° de Serie</label>
+	        				<input type="text" name="serial" class="form-control" id="serial" required="">
+	        			</div>
+	        			<div class="form-group col-md-6">
+	        				<label for="ordencompra">N° de Orden de Compra</label>
+	        				<input type="text" name="ordencompra" class="form-control" id="ordencompra">
+	        			</div>
+	        		</div>
+	        		<div class="form-row">
+	        			<div class="form-group col-md-12">
+	        				<label for="descripcion">Descripción</label>
+	        				<input type="text" name="descripcion" class="form-control" id="descripcion">
+	        			</div>
+	        		</div>
+	        		<div class="form-row">
+	        			<div class="form-group col-md-12">
+	        				<label for="empleado">Empleado</label>
+	        				<select name="empleado" class="form-control" id="empleado">
+	        					<option selected="">Seleccione Empleado</option>
+	        					{% for empleado in empleado  %}
+	        						<option value="{{empleado.id}}">{{empleado}}</option>
+	        					{% endfor %}
+	        				</select>
+	        			</div>
+	        		</div>
+	        		<div class="form-row">
+	        			<div class="form-group col-md-6">
+	        				<label for="proveedor">Proveedor</label>
+	        				<select name="proveedor" class="form-control" id="proveedor">
+	        					<option selected="">Seleccione Proveedor</option>
+	        					{% for proveedor in proveedores  %}
+	        						<option value="{{proveedor.id}}">{{proveedor}}</option>
+	        					{% endfor %}
+	        				</select>
+	        			</div>
+	        			<div class="form-group col-md-6">
+	        				<label for="regional">Regional</label>
+	        				<select name="regional" id="regional" class="form-control">
+	        					<option selected="">Seleccione Regional</option>
+	        					{% for regional in regionales %}
+						    		<option value="{{regional.id}}">{{regional}}</option>
+						    	{% endfor %}
+	        				</select>
+	        			</div>
+	        		</div>					
+					<input type="submit" value="Guardar" class="btn btn-success">
+	        	</div>
+			</form>
+	      </div>
+	    </div>
+	  </div>
+	</div>	
+
+	<script>
+	    $(document).ready(function(){
+	    	$('#tipo').chosen({
+			    width: "100%"
+			});
+			$('#marca').chosen({
+			    width: "100%"
+			});
+			$('#modelo').chosen({
+			    width: "100%"
+			});
+	        $('#proveedor').chosen({
+			    width: "100%"
+			});
+			
+			$('#regional').chosen({
+			    width: "100%"
+			});
+			$('#estado').chosen({
+			    width: "100%"
+			});
+			$('#empleado').chosen({
+			    width: "100%"
+			});
+
+			$('#tabla').dataTable({
+				 width: "100%"
+			});
+
+			$('#tipo').change(function(){
+			    var id= $(this).find(":selected").val();
+			    $.get(
+			        '/Inventory/impresoras/marca/',{id:id},
+			        function(data){
+			            $('#marca').html(data.contenido);
+			            $('#marca').trigger("chosen:updated");
+			        });
+			});
+
+			$('#marca').change(function(){
+			    var id2= $(this).find(":selected").val();
+			    $.get(
+			        '/Inventory/equipo/marca/modelo/',{id2:id2},
+			        function(data){
+			            $('#modelo').html(data.contenModelo);
+			            $('#modelo').trigger("chosen:updated");
+			        },'json');
+			});
+
+			var options ={
+				translation:{
+					'A':{pattern: /[A-Z]/},
+					'a':{pattern: /[a-zA-Z]/},
+					's':{pattern:/[a-zA-Z0-9]/},
+				}
+			}
+			$('#codInventario').mask('AAAAA-99999',options);
+	    });
+	</script>
+{% endblock %}

@@ -1,0 +1,177 @@
+{% extends "base_in.html" %}
+
+{% block title %}
+	Garantía
+{% endblock %}
+
+{% load static %}
+
+{% block fondo %}
+{% endblock %}
+
+{% block body %}
+
+	<script src="{% static 'js/jquery.js' %}"></script>
+	<script src="{% static 'js/chosen.jquery.js' %}"></script>
+
+	<div class="row ">
+		
+		<div class="col-md-12" style="width:1130px;height:150px; margin:0 auto;border-radius:3px;position:static">
+			<img src="{% static '/media/logounidos.png' %}" width="350"  height="150" alt="img" style="margin: auto;psoition:absolute ">
+			<br>
+		</div>
+		<div class="col-md-12">
+			<nav class="navbar navbar-dark bg-dark col-md-12">
+				<nav class="col-md-12" >
+	  				<form class="form-inline">
+	  					<div class="col-md-2">	
+	  						<a href="{% url 'Inventory:admin' %}" type="buttonCerrarSesion"style="position:static; display:inline-block; "><img src="{% static '/media/regresar2.png' %}" alt="img" style="margin: auto;width:25%; align:right" ></a> 
+	  					</div>
+	  					<div class="col-md-8" >
+		    				<label style="color:white; font-size:20px">GARANTÍA</label>
+	  					</div>
+	  					<div class="col-md-2" >
+		    				<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal" >
+		    					<img src="{% static '/media/nuevagarantia.png' %}" alt="img" style="margin: auto;width:25px; align:right" ><strong>  NUEVO</strong>
+		    				</button>
+	  					</div>
+	  				</form>
+				</nav>
+			</nav>
+		</div>
+		<br>
+		<br>
+		<br>
+		<div class="col-md-12">
+			<table id="tabla" class="table table-striped table-bordered table-hover" >
+				<thead>	
+					<tr>
+						<th >#</th>
+						<th>N° de Caso</th>
+						<th>Equipo</th>
+						<th>Asunto</th>
+						<th>Fecha de Apertura</th>
+						<th>Fecha de Cambio de Producto</th>
+						<th>Realizado por:</th>
+						<th>Acción</th>
+					</tr>
+				</thead>
+
+				<tbody id="filas_garantia" style="background:#F2F3F5;">
+					{% for g in garantia %}
+						<tr>
+							<td>{{forloop.counter}}</td>
+							<td width="12%">{{g.N_Caso}}</td>
+							<td width="13%">{{g.codigo_equipo}}</td>
+							<td width="30%">{{g.Asunto}}</td>
+							<td width="16%">{{g.Fecha_aperturaCaso}}</td>
+							<td width="18%">{{g.Fecha_entregaProducto}}</td>
+							<td width="12%">{{g.cod_empleado.primer_nombre}} {{g.cod_empleado.primer_apellido}}</td>
+							<td width="10%">
+								<div class="btn-group" role="group" style="color:orange">
+			    					<button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+										<img src="{% static '/media/accion.png' %}" alt="img" style="margin: auto;width:20px; align:right" >
+			    					</button>
+								    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+								    	<a class="dropdown-item" href="{% url 'Inventory:editargarantia' g.id %}">
+						    				<img src="{% static '/media/editar.png' %}" alt="img" style="margin: auto;width:20px; align:right" ><strong>  Editar</strong>
+						    			</a>
+								   	</div>
+								</div>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>		
+	</div>
+
+
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel"><img src="{% static '/media/nuevagarantia.png' %}" alt="img" style="margin: auto;width:30px" > Nuevo uso de Garantia</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <form  action="{%  url 'Inventory:nuevogarantia' %}" method="post">
+	        	<div class="col-md-12">
+					{% csrf_token %}
+					<div>	    
+	        			<div class="form-row">
+	        				<div class="form-group col-md-6">
+								<label for="caso">N° de Caso</label>
+				    			<input type="text" name="caso" class="form-control" id="caso">
+							</div>
+
+							<div class="form-group col-md-6">
+								<label for="selectCodEquipo">Código Equipo</label>
+						    	<select name="CodEquipo" class="form-control" id="CodEquipo">
+						    		<option selected="">Seleccione Equipo</option>
+						    		{% for CodEquipo in equipo  %}
+						    			<option value="{{CodEquipo.id}}">{{CodEquipo.codigo_equipo}}</option>
+						    		{% empty%}
+						    			<option value="">No hay Equipo</option>
+						    		{% endfor %}
+						    	</select>
+							</div>
+	        			</div>
+	        			<div class="form-row">
+	        				<div class="form-group col-md-12">
+								<label for="asunto">Asunto:</label>
+				    			<textarea name="asunto" id="asunto" class="form-control" rows="2" style="resize:none;"></textarea>
+				    			<small id="passwordHelpBlock" class="form-text text-muted"> Pequeña descripción del cual es utilizada la garantia de nuestros equipos con nuestros proveedores, para poder tener las mejores condiciones.</small>
+							</div>
+	        			</div>
+	        			<div class="form-row">
+	        				<div class="form-group col-md-6">
+								<label for="fechaApertura">Fecha Apertura:</label>
+				    			<input type="date" name="fechaApertura" class="form-control" id="fechaApertura" placeholder="Ejem. 1970-03-01">
+				    			<small id="passwordHelpBlock" class="form-text text-muted"> Fecha de cuando se abrio el caso</small>
+							</div>
+							<div class="form-group col-md-6">
+								<label for="fechaEntrega">Fecha Entrega:</label>
+				    			<input type="date" name="fechaEntrega" class="form-control" id="fechaEntrega" placeholder="Ejem. 1970-03-01">
+				    			<small id="passwordHelpBlock" class="form-text text-muted"> Fecha de cuando nos entregaran nuestro componente</small>
+							</div>
+						</div>
+	        			<div class="form-row">
+	        				<div class="form-group col-md-6">
+								<label for="selectEmpleado">Empleado Realiza</label>
+						    	<select name="CodEmpleado" class="form-control" id="CodEmpleado">
+						    		<option selected="">Seleccione Empleado </option>
+						    		{% for empleado in listaEmpleados %}
+						    			<option value="{{empleado.id}}">{{empleado}} </option>
+						    		{% endfor %}
+						    	</select>
+							</div>
+	        			</div>
+					</div>
+					<input type="submit" value="Guardar" class="btn btn-success">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+	        	</div>
+			</form>
+	      </div>
+	    </div>
+	  </div>
+	</div>	
+
+	<script>
+	    $(document).ready(function(){
+	        $('#CodEquipo').chosen({
+			    width: "100%"
+			});
+			
+			$('#CodEmpleado').chosen({
+			    width: "100%"
+			});
+
+			$('#tabla').dataTable({
+				 width: "100%"
+			});
+	    });
+	</script>
+{% endblock %}

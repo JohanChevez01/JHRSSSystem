@@ -1,0 +1,50 @@
+{% extends "base_out.html" %}
+
+{% block title %}
+	Inicia Sesión
+{% endblock  %}
+
+{% load static %}
+
+{% block fondo %}
+	{% static 'media/fprincipal1.jpg' %}
+{% endblock  %}
+
+{% block content %}
+
+	<style>
+		.errorlist {
+			display: none;
+		}
+
+		#modelForm {
+			width:30%; margin: 70px auto;border:1px solid gray;border-radius: 5px; padding: 50px;background:#143458;color:white;
+		}
+		@media (max-width: 767px) {
+			#modelForm {
+				width: 90%;
+			}
+		}
+	</style>
+	<div class="container">
+		<div id="modelForm" style="">
+	  <h2>Inicio de Sesión</h2>
+	  <form action="{% url 'security:log_in' %}" method="post">
+	  		{% csrf_token %}
+	   		{{ form.as_p }}
+	    <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+	  </form>
+	  <br>
+	  {% if message %}
+	  	<div style="font-size:14px" class="alert alert-danger" role="alert">
+ 		 {{ message }}
+		</div>
+	  {% endif %}
+	  <br>
+	  <br>
+	</div>
+	</div>
+
+
+	
+{% endblock %}

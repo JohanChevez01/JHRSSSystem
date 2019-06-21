@@ -1,0 +1,36 @@
+{% extends "base_in.html" %}
+
+{% block title %}
+	Nuevo Cargo
+{% endblock %}
+
+{% load static %}
+
+{% block body %}
+
+
+	<div class="row">
+
+		<div class="col-md-12" style="margin: auto; display:block; ">
+			<img src="{% static '/media/logounidos.png' %}" width="350"  height="150" alt="img" style="margin: auto; display:block; ">
+			<hr>
+				
+			</style>
+		</div>
+
+
+		<div class="col-md-4" style="margin: auto; display:block;" id="form">
+			<form  method="post" >
+				{% csrf_token %}
+				{{ form.as_p}}
+				<div class="input-group">
+					<input style="margin: auto; display:block;" type="submit" value="Save" class="btn btn-success">
+					<input style="margin: auto; display:block;" type="reset" value="Cancel" class="btn btn-danger">
+				</div>
+					
+
+			</form>
+		</div>
+	</div>
+	
+{% endblock  %}

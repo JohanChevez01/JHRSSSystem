@@ -1,0 +1,79 @@
+{% extends "base_in.html" %}
+
+{% block title %}
+	Bienvenido Compras
+{% endblock %}
+
+{% load static %}
+
+{% block fondo %}
+	{% static 'media/feditar.png' %}
+{% endblock fondo %}
+
+
+{% block body %}
+	<div class="row">
+		<div class="col-md-12" style="margin: auto; display:block; ">
+			<table width="100%" border="0" cellpadding="2">
+				<tr>
+					<td>
+						<img src="{% static '/media/logounidos.png' %}" width="350"  height="150" alt="img" style="display:block; ">
+					</td>
+					<td>
+						<a href="{% url 'security:log_out' %}" type="buttonCerrarSesion"style="position:relative"><img src="{% static '/media/cerrarsesiontodo.png' %}" width="155"  height="50" alt="img" style="display:block;" align="right"></a>
+					</td>
+				</tr>
+			</table>
+			<hr>
+		</div>
+
+		<div class="col-sm-6 col-md-4">
+			<div class="thumbnail">
+				<center><img src="{% static '/media/proveedor.png' %}" width="150"  height="150" alt="img" style=" display:block;"></center>
+				<div class="caption">
+					<h3>Proveedores</h3>
+					<p align="justify">Podemos Ingresar un Nuevo Proveedor y en listar cierta información.</p>
+					<br>
+					<br>	
+					<p>
+						<a href="{% url 'Inventory:proveedorC' %}"  class="btn btn-info btn-lg btn-block" role="button">
+							<strong>LISTA</strong>
+						</a>
+					</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-sm-6 col-md-4">
+			<div class="thumbnail">
+				<center><img src="{% static '/media/telefono.png' %}" width="150"  height="150" alt="img" style=" display:block;"></center>
+				<div class="caption">
+					<h3>Telefono de Proveedores</h3>
+					<p align="justify">Podemos Ingresar un nuevo numero de telefono para los proveedores y enlistar los diferentes numeros de telefono para podernos contactar con dicho proveedor.</p>
+					<p>
+						<a href="{% url 'Inventory:telefonoproveedorC' %}" class="btn btn-danger btn-lg btn-block" role="button">
+							<strong>LISTA</strong>
+						</a>
+					</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-sm-6 col-md-4">
+			<div class="thumbnail">
+				<center><img src="{% static '/media/ubicacion.png' %}" width="250"  height="150" alt="img" style=" display:block;"></center>
+				<div class="caption">
+					<h3>Dirección de Proveedores</h3>
+					<p align="justify">Podemos Ingresar una nueva dirección de la ubicacion de los proveedores y enlistar las diferentes direcciones de los proveedores.</p>
+					<br>	
+					<p>
+						<a href="{% url 'Inventory:direccionproveedorC' %}" class="btn btn-info btn-lg btn-block" role="button">
+							<strong>LISTA</strong>
+						</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock  %}

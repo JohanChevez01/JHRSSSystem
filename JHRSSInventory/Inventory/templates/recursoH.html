@@ -1,0 +1,153 @@
+{% extends "base_in.html" %}
+
+{% block title %}
+	Bienvenido Recursos Humanos
+{% endblock %}
+
+{% load static %}
+
+{% block fondo %}
+	{% static 'media/recursosHP.png' %}
+{% endblock fondo %}
+
+{% block body %}
+	<div class="row">
+		<div class="col-md-12" style="margin: auto; display:block; ">
+			<table width="100%" border="0" cellpadding="2">
+				<tr>
+					<td>
+						<img src="{% static '/media/logounidos.png' %}" width="330"  height="130" alt="img" style="display:block; ">
+					</td>
+					<td>
+						<a href="{% url 'security:log_out' %}" type="buttonCerrarSesion"style="position:relative"><img src="{% static '/media/cerrarsesiontodo.png' %}" width="155"  height="50" alt="img" style="display:block;" align="right"></a>
+					</td>
+				</tr>
+			</table>
+			<hr>
+		</div>
+		<div class="col-md-12" style="margin:auto; display:block;">
+			<table width="100%" border="0" cellpadding="2">
+				<tr>
+					<td>
+						<div class="cold-md-12" style="margin:auto;display:block;">
+							<div class="btn-group" >
+								<button type="button" class="btn btn-secondary">
+									<a href="{% url 'Inventory:recursosH' %}">
+										<img src="{% static '/media/home.png' %}" alt="img" style="margin: auto;width:45px" >
+									</a>
+								</button>
+							<div class="btn-group" role="group">
+								<button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<img src="{% static '/media/empleado.png' %}" alt="img" style="margin: auto;width:50px" ><strong>  EMPLEADO</strong>
+								</button>
+								<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+			    					<a class="dropdown-item" href="{% url 'Inventory:usuarioR' %}">
+						    			<img src="{% static '/media/iniciarsesion.png' %}" alt="img" style="margin: auto;width:30px" >         Usuario
+						    		</a>
+						      		<a class="dropdown-item" href="{% url 'Inventory:empleadoR' %}">
+						      			<img src="{% static '/media/empleadoR.png' %}" alt="img" style="margin: auto;width:30px" >            Empleado
+						      		</a>
+						        	<a class="dropdown-item" href="{% url 'Inventory:telefonoempleadoR' %}">
+						        		<img src="{% static '/media/telefono.png' %}" alt="img" style="margin: auto;width:30px" >            Telefono Empleado
+						        	</a>
+						        	<a class="dropdown-item" href="{% url 'Inventory:direccionempleadoR' %}">
+						        		<img src="{% static '/media/ubicacion.png' %}" alt="img" style="margin: auto;width:30px" >          Direccion Empleado
+						        	</a>
+						        	<a class="dropdown-item" href="{% url 'Inventory:contratoR' %}">
+						        		<img src="{% static '/media/contrato.png' %}" alt="img" style="margin: auto;width:30px" >           Contrato Empleado
+						        	</a>
+						        	<a class="dropdown-item" href="{% url 'Inventory:salarioR' %}">
+						        		<img src="{% static '/media/salario.png' %}" alt="img" style="margin: auto;width:30px" >              Salario Empleado
+						        	</a>
+								</div>
+							</div>
+							<div class="btn-group" role="group">
+							   	<button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							   		<img src="{% static '/media/registro.png' %}" alt="img" style="margin: auto;width:50px" ><strong>  REGISTROS</strong>
+							   	</button>
+							   	<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+							   		<a class="dropdown-item" href="{% url 'Inventory:profesionR' %}">
+						    			<img src="{% static '/media/profesion.png' %}" alt="img" style="margin: auto;width:30px" >       Profesión
+						    		</a>
+						      		<a class="dropdown-item" href="{% url 'Inventory:cargoR' %}">
+						      			<img src="{% static '/media/cargo.png' %}" alt="img" style="margin: auto;width:30px" >       Cargo 
+						      		</a>
+						        	<a class="dropdown-item" href="{% url 'Inventory:departamentoR' %}">
+						        		<img src="{% static '/media/departamento.png' %}" alt="img" style="margin: auto;width:30px" >       Departamento
+						        	</a>
+						        	<a class="dropdown-item" href="{% url 'Inventory:regionalR' %}">
+						        		<img src="{% static '/media/regional.png' %}" alt="img" style="margin: auto;width:30px" >       Regionales
+						        	</a>
+							    </div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-12" >
+						<br>
+						<form class="form-inline col-md-12">
+							<div class="col-md-1"></div>
+							<div style="width:10px;" class="col-md-10">
+								<img class="card-img-top" src="{% static '/media/empleadoR.png' %}" alt="Card image cap">
+								<div>
+									<p class="card-text" style="text-align:center"><strong>Empleados:  {{empleado}}</strong></p>
+								</div>
+							</div>
+							<div class="col-md-1"></div>
+						</form>
+						<br>
+					</div>
+				</td>
+				<td>
+					<div class="col-md-12" style="margin:auto; display:block;">
+						<table width="100%" border="0" cellpadding="2">
+						</table>
+					</div>
+					
+				</td>
+
+
+				<td class="	col-md-12"	>
+					<div class="col-md-12" style="margin:auto; display:block;">
+						<table width="100%" border="0" cellpadding="2">
+							<tr>
+								<td>
+									<div class="col-md-1"></div>
+									<div style="width:220px;" class="col-md-12">
+										<img class="card-img-top" src="{% static '/media/informacionpersonal.png' %}" alt="Card image cap">
+										<div>
+											<p class="card-text" style="text-align:center"><strong>Información personal del Empleado</strong></p>
+										</div>
+									</div>
+									<div class="col-md-2"></div>
+									<div style="width:220px;" class="col-md-12">
+										<img class="card-img-top" src="{% static '/media/telefonoempleado.png' %}" alt="Card image cap">
+										<div>
+											<p class="card-text" style="text-align:center"><strong>Telefono Empleado</strong></p>
+										</div>
+									</div>
+								</td>
+								<td class="	col-md-12">
+									<div class="col-md-1"></div>
+									<div style="width:220px;" class="col-md-12">
+										<img class="card-img-top" src="{% static '/media/historialempleado.png' %}" alt="Card image cap">
+										<div>
+											<p class="card-text" style="text-align:center"><strong>Historial del empleado.</strong></p>
+										</div>
+										<br>	
+									</div>
+									<div class="col-md-1"></div>
+									<div style="width:220px;" class="col-md-12">
+										<img class="card-img-top" src="{% static '/media/ubicacionempleado.png' %}" alt="Card image cap">
+										<div>
+											<p class="card-text" style="text-align:center"><strong>Dirección Empleado</strong></p>
+										</div>
+									</div>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+{% endblock  %}

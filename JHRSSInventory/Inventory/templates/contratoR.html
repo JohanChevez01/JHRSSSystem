@@ -1,0 +1,141 @@
+{% extends "base_in.html" %}
+
+{% block title %}
+	Contrato
+{% endblock %}
+
+{% load static %}
+
+{% block fondo %}
+{% endblock %}
+
+{% block body %}
+	
+	<script src="{% static 'js/jquery.js' %}"></script>
+	<script src="{% static 'js/chosen.jquery.js' %}"></script>
+
+	<div class="row ">
+		
+		<div class="col-md-12" style="width:1130px;height:150px; margin:0 auto;border-radius:3px;position:static">
+			<img src="{% static '/media/logounidos.png' %}" width="350"  height="150" alt="img" style="margin: auto;psoition:absolute ">
+			<br>
+		</div>
+		<div class="col-md-12">
+			<nav class="navbar navbar-dark bg-dark col-md-12">
+				<nav class="col-md-12" >
+	  				<form class="form-inline">
+	  					<div class="col-md-2">	
+	  						<a href="{% url 'Inventory:recursosH' %}" type="buttonCerrarSesion"style="position:static; display:inline-block; "><img src="{% static '/media/regresar2.png' %}" alt="img" style="margin: auto;width:25%; align:right" ></a> 
+	  					</div>
+	  					<div class="col-md-8" >
+		    				<label style="color:white; font-size:20px">CONTRATO</label>
+	  					</div>
+	  					<div class="col-md-2" >
+		    				<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal" >
+		    					<img src="{% static '/media/nuevocontrato.png' %}" alt="img" style="margin: auto;width:40px; align:right" ><strong>  NUEVO</strong>
+		    				</button>
+	  					</div>
+	  				</form>
+				</nav>
+			</nav>
+		</div>
+		<br>	<br><br>
+		<div class="col-md-12" style="display:block; width:100%;">
+			<table  id="tabla" class="table table-striped table-bordered table-hover" style="width:100%">
+				<thead>	
+					<tr>
+						<th style="width:8%; text-align:center;">#</th>
+						<th style="text-align:center; width:15%;">Cod_Empleado</th>
+						<th style="text-align:center; width:35%;">Nombre Completo Empleado</th>
+						<th style="text-align:center; width:20%;">Fecha Inicial</th>
+						<th style="text-align:center; width:20%;">Fecha Final</th>
+						<th style="text-align:center; width:10%;">Acción</th>
+					</tr>
+				</thead>
+
+				<tbody id="filas_contrato" style="background:#F2F3F5;">
+					{% for c in contrato %}
+						<tr>
+							<td>{{forloop.counter}}</td>
+							<td><strong>{{c.cod_empleado.cod_empleado}}</strong></td>
+							<td><strong>{{c.cod_empleado.primer_nombre}} {{c.cod_empleado.segundo_nombre}} {{c.cod_empleado.primer_apellido}} {{c.cod_empleado.segundo_apellido}}</strong></td>
+							<td><strong>{{c.fecha_inicio}}</strong></td>
+							<td><strong>{{c.fecha_final}}</strong></td>
+							<td>
+								<div class="btn-group" role="group" style="color:orange">
+			    					<button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+										<img src="{% static '/media/accion.png' %}" alt="img" style="margin: auto;width:20px; align:right" >
+			    					</button>
+								    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+								    	<a class="dropdown-item" href="{% url 'Inventory:editarcontratoR' c.id %}">
+						    				<img src="{% static '/media/editar.png' %}" alt="img" style="margin: auto;width:20px; align:right" ><strong>  Editar</strong>
+						    			</a>
+								   	</div>
+								</div>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+		<br>
+	</div>
+
+
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel"><img src="{% static '/media/nuevocontrato.png' %}" alt="img" style="margin: auto;width:30px" > Nuevo Contrato</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <form  action="{%  url 'Inventory:nuevocontratoR' %}" method="post">
+	        	<div class="col-md-12">
+					{% csrf_token %}
+					
+					<div class="form-row">
+						<div class="form-group col-md-12">
+							<label for="codEmpleado">Empleado</label>
+							<select name="CodEmpleado" class="form-control" id="CodEmpleado">
+								<option value="">Seleccione Empleado</option>
+								{% for empleado in empleados  %}
+									<option value="{{empleado.id}}">{{empleado.primer_nombre}} {{empleado.segundo_nombre}} {{empleado.primer_apellido}} {{empleado.segundo_apellido}}</option>
+								{% endfor %}
+							</select>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-group col-md-6">
+							<label for="fechaInicio">Fecha Inicio</label>
+							<input type="date" name="fechaInicio" class="form-control" id="fechaInicio">
+						</div>
+						<div class="form-group col-md-6">
+							<label for="fechaFinal">Fecha Final</label>
+							<input type="date" name="fechaFinal" class="form-control" id="fechaFinal">
+						</div>
+					</div>
+					<input type="submit" value="Guardar" class="btn btn-success">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+	        	</div>
+			</form>
+	      </div>
+	    </div>
+	  </div>
+	</div>	
+
+	<script>
+	    $(document).ready(function(){
+	        $('#CodEmpleado').chosen({
+			    width: "100%"
+			});
+
+			$('#tabla').dataTable({
+				 width: "100%"
+			});
+	    });
+	</script>
+
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "base_out.html" %}
+
+{% block title %}
+	UNIDOS POR LA JUSTICIA
+{% endblock %}
+
+{% load static %}
+
+{% block fondo %}
+	
+{% endblock fondo %}
+	
+{% block contenido %}
+	
+	<div class="col-md-12" style="margin: auto; display:block; ">
+    <table width="100%" border="0" cellpadding="2">
+      <tr>
+        <td>
+          <img src="{% static '/media/logounidos.png' %} " width="320"  height="120" alt="img" style="margin: auto; display:inline-block; position:static; ">
+        </td>
+        <td>
+           <a href="{% url 'security:login_form' %}" type="buttonCerrarSesion"style="position:relative"><img src="{% static '/media/iniciarSesiontodo.png' %}" width="255"  height="100" alt="img" style="display:block;" align="right"></a>
+        </td>
+      </tr>
+    </table>
+  </div>
+	
+	
+	<div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+  		<div class="carousel-inner">
+    		<div class="carousel-item active" style="width: 100%">
+      			<img class="d-block w-100" src="{% static '/media/c1.jpg' %}" alt="Imagen1">
+    		</div>
+    		<div class="carousel-item" width="1200px" height="571px">
+      			<img class="d-block w-100" src="{% static '/media/c2.png' %}" alt="Imagen2">
+    		</div>
+    		<div class="carousel-item">
+      			<img class="d-block w-100" src="{% static '/media/c3.png' %}" alt="Imagen3">
+    		</div>
+    		<div class="carousel-item">
+      			<img class="d-block w-100" src="{% static '/media/c4.png' %}" alt="Imagen4">
+    		</div>
+    		<div class="carousel-item">
+      			<img class="d-block w-100" src="{% static '/media/c5.png' %}" alt="Imagen5">
+    		</div>
+        <div class="carousel-item">
+            <img class="d-block w-100" src="{% static '/media/c6.png' %}" alt="Imagen6">
+        </div>
+        <div class="carousel-item">
+            <img class="d-block w-100" src="{% static '/media/c7.png' %}" alt="Imagen7">
+        </div>
+        <div class="carousel-item">
+            <img class="d-block w-100" src="{% static '/media/c8.png' %}" alt="Imagen8">
+        </div>
+  		</div>
+	</div>	
+
+{% endblock  %}

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>MANTENIMIENTOS PDF</title>
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"> -->
+	<!--<link rel="stylesheet" href="https://gist.githubusercontent.com/soncco/fd8e5a6df105ec5dfd1d/raw/7091e625efe98d4df000354cd1ae379dd6fe85f4/bootstrap.css">-->
+	<link rel="stylesheet" href="/static/bootstrap/css/bootstrap.css">
+	<link id="favicon" rel="shortcut icon" href="/media/Logo/logounidos.png" type="image/png" />
+</head>
+<body>
+	<style>
+		h1{
+			padding: 20px;
+			color: #008080;
+			font-family: times-new-roman;
+		}
+		
+		table {
+			font-size: 12pt;
+			left: 50pt;
+			height: 20pt;
+
+		}
+		@page{
+
+			@frame header_frame {
+				-pdf-frame-content: header_content;
+				-pdf-frame-border: 1;
+				left: 50pt;
+				width: 700pt;
+				top: 50pt;
+				height: 40pt;
+				
+			}
+
+			@frame content_frame{
+				-pdf-frame-border: 1;
+				left: 300pt;
+				width: 700pt;
+				top: 90pt;
+				height: 450	pt;
+				
+			}
+
+			@frame header_frame {
+				-pdf-frame-content: footer_content;
+				-pdf-frame-border: 1;
+				left: 50pt;
+				width: 700pt;
+				top: 550pt;
+				height: 20pt;
+				
+			}
+		}
+	</style>
+
+	<div class="col-md-12" style="margin: auto; display:block; ">
+		<table width="100%" border="0" cellpadding="2" bgcolor="#EBEBEB">
+			<tr>
+				<td>
+					<center><img src="/media/Logo/logounidos.png" width="350"  height="150" alt="img" style="display:block; "></center>
+				</td>
+			</tr>
+		</table>
+		<hr>
+	</div>
+
+	<div id="header_content">
+		<h1>Mantenimientos Realizados</h1>
+	</div>
+	<div class="col-md-12" style="margin: auto; display:block; ">
+		<table class="table" width="100%" border="1" cellpadding="2">
+			<theads>
+				<tr>
+					<th>CÓDIGO INVENTARIO</th>
+					<th>FECHA INICIO</th>
+					<th>CAUSA DE LA FALLA</th>
+					<th>ACCIÓN A REALIZAR</th>
+					<th>FECHA DE SALIDA</th>
+					<th>PROVEEDOR</th>
+					<th>EMPLEADO QUE REALIZO</th>
+				</tr>
+				<br>
+			</thead>
+			<tbody>
+				{% for e in object_list %}
+					<tr>
+						<td>{{e.codigo_Inventario}}</td>
+						<td>{{e.fecha_inicio}}</td>
+						<td>{{e.causa_Falla}}</td>
+						<td>{{e.accion_Realizar}}</td>
+						<td>{{e.fecha_salida}}</td>
+						<td>{{e.proveedor}}</td>
+						<td>{{e.cod_empleado.primer_nombre}} {{e.cod_empleado.segundo_nombre}} {{e.cod_empleado.primer_apellido}} {{e.cod_empleado.segundo_apellido}}</td>
+					</tr>					
+				{% endfor %}
+			</tbody>
+		</table>
+		<br>
+		<br>
+	</div>
+	<center><div id="footer_content">
+	</div></center>
+</body>
+</html>
